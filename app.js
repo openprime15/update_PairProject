@@ -1,3 +1,4 @@
+const passwordRouter = require("./routes/password");
 const logoutRouter = require("./routes/logout");
 const contactRouter = require("./routes/contact");
 const loginRouter = require("./routes/login");
@@ -27,6 +28,7 @@ app.use(
   })
 );
 
+app.use("/password", passwordRouter);
 app.use("/logout", logoutRouter);
 app.use("/contact", contactRouter);
 app.use("/login", loginRouter);

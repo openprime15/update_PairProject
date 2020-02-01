@@ -1,4 +1,23 @@
 $(document).ready(function() {
+  ////내 부분 추가//
+  $("#pw_btn").click(function() {
+    //alert();
+    const name = $("#name").val();
+    const email = $("#email").val();
+    const phone = $("#phone").val();
+
+    const send_param = { name, email, phone };
+    $.post("/password/process", send_param, function(returnData) {
+      alert(returnData.message);
+      if (flag == 1) {
+        opener.location.reload();
+        window.close();
+      } else {
+        location.reload();
+      }
+    });
+  });
+
   /////내 부분////
   $("#logout_btn").click(function() {
     $.post("/logout", {}, function(returnData) {
@@ -16,10 +35,39 @@ $(document).ready(function() {
     const phone = $("#phone").val();
     const address = $("#address").val();
 
+    let errMSG = "";
+
+    if (name == "" || name == undefined) {
+      errMSG = "이름을 입력해주세요.";
+      $("#contact_err_msg").html(errMSG);
+      $("#name").focus();
+      return;
+    } else if (email == "" || email == undefined) {
+      errMSG = "이메일을 입력해주세요.";
+      $("#contact_err_msg").html(errMSG);
+      $("#email").focus();
+      return;
+    }
+    if (pw == "" || pw == undefined) {
+      errMSG = "패스워드를 입력해주세요.";
+      $("#contact_err_msg").html(errMSG);
+      $("#pw").focus();
+      return;
+    }
+    if (phone == "" || phone == undefined) {
+      errMSG = "전화번호를 입력해주세요.";
+      $("#contact_err_msg").html(errMSG);
+      $("#phone").focus();
+      return;
+    }
+
     const send_param = { name, email, pw, usr_type, phone, address };
     $.post("contact", send_param, function(returnData) {
       alert(returnData.message);
-      window.close();
+      if (returnData.flag) {
+        //if문 추가
+        window.close();
+      }
     });
   });
 
@@ -40,7 +88,6 @@ $(document).ready(function() {
       }
     });
   });
-  ///////////
   $("#login_open_btn").click(function() {
     window.open(
       "login/form",
@@ -48,6 +95,7 @@ $(document).ready(function() {
       "toolbar=no,menubar=no,scrollbars=yes,resizable=no,location=no,top=200,left=300,width=600,height=600"
     );
   });
+  ///////////
 
   $("#report_view_btn").click(function() {});
 
