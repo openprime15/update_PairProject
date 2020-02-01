@@ -2,6 +2,24 @@ const con = require("./mysql_con");
 const express = require("express");
 const router = express.Router();
 
+router.post("/emailcheck", (req, res) => {
+  const email = req.body.email;
+  con.query(
+    `SELECT * FROM pp_members where email='${email}'`,
+    (err, result, fields) => {
+      if (err) {
+        //con.end();
+        console.log(err);
+        res.json({ message: `중복확인 실패했습니다.` });
+      } else if (!result[0]) {
+        res.json({ message: `사용가능` });
+      } else {
+        res.json({ message: `사용불가` });
+      }
+    }
+  );
+});
+
 router.get("/form", (req, res, next) => {
   res.render("login_form", { title: "로그인" });
 });

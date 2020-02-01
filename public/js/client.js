@@ -1,15 +1,53 @@
 $(document).ready(function() {
   ////내 부분 추가//
+  //이메일 중복 체크
+  $("#email_check").click(function() {
+    const email = $("#email").val();
+
+    let errMSG = "";
+    if (email == "" || email == undefined) {
+      errMSG = "이메일을 입력해주세요.";
+      $("#contact_err_msg").html(errMSG);
+      $("#email").focus();
+
+      return;
+    }
+
+    const send_param = { email };
+    $.post("login/emailcheck", send_param, function(returnData) {
+      $("#email_check").val(returnData.message);
+    });
+  });
+
   $("#pw_btn").click(function() {
+    //비밀번호 찾기
     //alert();
     const name = $("#name").val();
     const email = $("#email").val();
     const phone = $("#phone").val();
 
+    let errMSG = "";
+    if (name == "" || name == undefined) {
+      errMSG = "이름을 입력해주세요.";
+      $("#pw_name_err_msg").html(errMSG);
+      $("#name").focus();
+      return;
+    } else if (email == "" || email == undefined) {
+      errMSG = "이메일을 입력해주세요.";
+      $("#pw_email_err_msg").html(errMSG);
+      $("#email").focus();
+      return;
+    } else if (phone == "" || phone == undefined) {
+      errMSG = "전화번호를 입력해주세요.";
+      $("#pw_phone_err_msg").html(errMSG);
+      $("#phone").focus();
+      return;
+    }
+
     const send_param = { name, email, phone };
     $.post("/password/process", send_param, function(returnData) {
       alert(returnData.message);
-      if (flag == 1) {
+      if (returnData.flag == 1) {
         opener.location.reload();
         window.close();
       } else {
