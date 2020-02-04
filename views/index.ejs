@@ -31,12 +31,26 @@
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
+          <%
+          if(flag==0){
+      %>
           <h3 class="masthead-brand">Cover</h3>
+          <%
+        }else{
+          %>
+          <h3 class="masthead-brand">
+            <%= name %>
+            님</h3>
+          <%
+        }
+    %>
           <nav class="nav nav-masthead justify-content-center">
+            
             <a class="nav-link active" href="#" onclick="movehome()">Home</a>
             
-            <a id="report_view_btn" class="nav-link active">Board</a>
+            <a id="report_view_btn" href="#" class="nav-link active">Board</a>
             <a class="nav-link active" href="#" onclick="movecontact()">Contact</a>
+            
           </nav>
         </div>
       </header>

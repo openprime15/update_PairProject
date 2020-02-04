@@ -10,6 +10,7 @@ $(document).ready(function() {
     const send_param = { name, email, phone, comments };
     $.post("/contact/here_process", send_param, function(returnData) {
       alert(returnData.message);
+      location.reload();
     });
   });
 
@@ -112,10 +113,9 @@ $(document).ready(function() {
     const send_param = { name, email, pw, usr_type, phone, address };
     $.post("contact", send_param, function(returnData) {
       alert(returnData.message);
-      window.close();
       if (returnData.flag) {
         //if문 추가
-        window.close();
+        location.href = "/login/form";
       }
     });
   });

@@ -28,9 +28,9 @@ router.post("/process", (req, res, next) => {
           message: `비밀번호는 ${pw}입니다.`,
           flag: 1
         });
-        } else {
-          res.json({ message: `정보가 정확하지 않습니다.`, flag: 0 });
-        }
+      } else {
+        res.json({ message: `정보가 정확하지 않습니다.`, flag: 0 });
+      }
     }
   ); //end query
 });
