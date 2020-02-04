@@ -2,6 +2,28 @@ const con = require("./mysql_con");
 const express = require("express");
 const router = express.Router();
 
+router.post("/here_process", (req, res, next) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  const comments = req.body.comments;
+
+  let sql = `INSERT INTO pp_contact (c_name, c_email, c_phone, c_comments) VALUES ('${name}', '${email}', '${phone}', '${comments}') `;
+  con.query(sql, function(err, result) {
+    if (err) {
+      console.log("insert fail", err);
+      res.json({ message: "다시 입력해주세요." });
+    } else {
+      console.log("1 record inserted");
+      res.json({ message: "제출 확인되었습니다." });
+    }
+  });
+});
+
+router.get("/here", (req, res, next) => {
+  res.render("contact_here", {});
+});
+
 router.post("/", (req, res, next) => {
   console.log("Connected!");
   const name = req.body.name;
@@ -10,11 +32,11 @@ router.post("/", (req, res, next) => {
   const usr_type = req.body.usr_type;
   const phone = req.body.phone;
   const address = req.body.address;
-
   let sql = `SELECT * FROM pp_members where email='${email}'`;
   con.query(sql, function(err, result) {
     if (err) {
       console.log("insert fail", err);
+      res.json({ message: "회원가입 실패" });
       res.json({ message: "회원가입 실패(중복확인 부분)" });
     } else {
       if (result[0]) {

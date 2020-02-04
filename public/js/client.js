@@ -1,6 +1,18 @@
 $(document).ready(function() {
-  ////내 부분 추가//
-  //이메일 중복 체크
+  $("#c_submit").click(function() {
+    const name = $("#c_name").val();
+    const email = $("#c_email").val();
+    const phone = $("#c_phone").val();
+    const comments = $("#c_comments").val();
+
+    // alert(name + email + phone + comments);
+
+    const send_param = { name, email, phone, comments };
+    $.post("/contact/here_process", send_param, function(returnData) {
+      alert(returnData.message);
+    });
+  });
+
   $("#email_check").click(function() {
     const email = $("#email").val();
 
@@ -20,7 +32,6 @@ $(document).ready(function() {
   });
 
   $("#pw_btn").click(function() {
-    //비밀번호 찾기
     //alert();
     const name = $("#name").val();
     const email = $("#email").val();
@@ -56,7 +67,6 @@ $(document).ready(function() {
     });
   });
 
-  /////내 부분////
   $("#logout_btn").click(function() {
     $.post("/logout", {}, function(returnData) {
       alert(returnData.message);
@@ -102,6 +112,7 @@ $(document).ready(function() {
     const send_param = { name, email, pw, usr_type, phone, address };
     $.post("contact", send_param, function(returnData) {
       alert(returnData.message);
+      window.close();
       if (returnData.flag) {
         //if문 추가
         window.close();
@@ -126,6 +137,7 @@ $(document).ready(function() {
       }
     });
   });
+
   $("#login_open_btn").click(function() {
     window.open(
       "login/form",
@@ -133,42 +145,87 @@ $(document).ready(function() {
       "toolbar=no,menubar=no,scrollbars=yes,resizable=no,location=no,top=200,left=300,width=600,height=600"
     );
   });
-  ///////////
 
-  $("#report_view_btn").click(function() {});
+  $("#comment_form_btn").click(function() {
+    $("#comment_form").show();
+    $("#comment_form_btn").hide();
+  });
+
+  $("#report_view_btn").click(function() {
+    $.get("/board/view_board", {}, function(returnData) {
+      if (!returnData.message) {
+        location.href = "/board/view_board";
+      } else {
+        alert(returnData.message);
+      }
+    });
+  });
 
   $("#report_btn").click(function() {
-    $.get("/board/write_form", {}, function(resultData) {
-      window.open(
-        "/board/write_form",
-        "_blank",
-        "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=1500,height=800"
-      );
+    $.get("/board/write_form", {}, function(returnData) {
+      if (returnData.message) {
+        alert(returnData.message);
+      } else {
+        window.open(
+          "/board/write_form",
+          "_blank",
+          "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=1500,height=800"
+        );
+      }
     });
   });
 
   $("#r_insert_btn").click(function() {
-    alert();
     const time = $("#time").val(); //발견 시간
-    const r_title = $("#r_title").val();
+    const title = $("#r_title").val();
     const threat_type = $("#threat_type").val();
     const os = $("#os").val();
     const victim_ip = $("#victim_ip").val();
     const victim_port = $("#victim_port").val();
     const attack_ip = $("#attack_ip").val();
-    const r_comment = $("#r_comment").val();
+    const comment = $("#r_comment").val();
+
+    const alert_type = $("#alert_type").val();
+
+    let errMSG = "";
+
+    if (title == "" || title == undefined) {
+      errMSG = "타이틀을 입력해주세요.";
+      alert(errMSG);
+      $("#r_title").focus();
+      return;
+    } else if (alert_type == "" || alert_type == undefined) {
+      errMSG = "신고 유형을 입력해주세요.";
+      alert(errMSG);
+      $("#alert_type").focus();
+      return;
+    } else if (threat_type == "" || threat_type == undefined) {
+      errMSG = "취약점 유형을 입력해주세요.";
+      alert(errMSG);
+      $("#threat_type").focus();
+      return;
+    } else if (comment == "" || comment == undefined) {
+      errMSG = "내용을 입력해주세요.";
+      alert(errMSG);
+      $("#r_comment").focus();
+      return;
+    }
+
     const sendParam = {
       time,
-      r_title,
+      title,
       threat_type,
       os,
       victim_ip,
       victim_port,
       attack_ip,
-      r_comment
+      comment
     };
     $.post("/board/write", sendParam, function(returnData) {
       alert(returnData.message);
+      if (returnData.flag == 1) {
+        window.close();
+      }
     });
   });
 });

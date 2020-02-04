@@ -2,13 +2,13 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="js/client.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
   <style>
 .divider-text {
     position: relative;
@@ -31,7 +31,6 @@
     left: 0;
     z-index: 1;
 }
-
 .btn-facebook {
     background-color: #405D9D;
     color: #fff;
@@ -40,7 +39,6 @@
     background-color: #42AEEC;
     color: #fff;
 }
-
   </style>
 </head>
 <body>
@@ -61,12 +59,10 @@
           <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
        </div>
           <input name="" id="email" class="form-control" placeholder="이메일 주소를 입력해주세요."" type="email" required>
-            
           <div class='invalid-feedback'>주소를입력하세요.</div>
           <input type="button" class="btn btn-outline-secondary" id="email_check" value="중복확인"/>
-          <!-- <button class="btn btn-outline-secondary" id="email_check">중복확인</button> -->
       </div> <!-- form-group// -->
-      <div id="contact_emailcheck_msg" class="text-secondary"></div>  
+      <div id="contact_emailcheck_msg" class="text-secondary"></div>
       <div class="form-group input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
@@ -94,14 +90,13 @@
           <span class="input-group-text"> <i class="fa fa-address-card"></i> </span>
        </div>
           <input name="" id="address" class="form-control" placeholder="주소를 입력해주세요."" type="text">
-      </div> <!-- form-group// --> 
-      <div id="contact_err_msg" class="text-danger"></div>                                
+      </div> <!-- form-group// -->                                 
+      <div id="contact_err_msg" class="text-danger"></div> 
       <div class="form-group">
           <input type="button" id="contact_btn" class="btn btn-primary btn-block" value="회원 가입">
           <!-- <button type="submit" id="contact_btn" class="btn btn-primary btn-block"> Create Account  </button> -->
-      </div></div>> <!-- form-group// -->      
-      <p class="text-center">회원이신가요? <a href="" onclick="movepage(); return false;"/>Log In</a> </p>    
-                                                           
+      </div></div>> <!-- form-group// -->     
+      <p class="text-center">회원이신가요? <a href="" onclick="movepage(); return false;"/>Log In</a> </p>                                                                 
   </form>
 </article>
 </div>
@@ -112,5 +107,6 @@
       location.href ="/login/form";
   }
 </script>
+
 </body>
 </html>
